@@ -28,18 +28,10 @@ namespace Web_app_NEWS.Models
 
        
 
-
-
-
         public virtual DbSet<News> News { get; set; }
 
 
 
-
-
-        public int SourceId { get; set; }
-      
-       
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,0 +1,125 @@
+﻿@using Web_app_NEWS.Models
+@model IEnumerable<NewsViewModel>
+
+
+
+
+@{
+    ViewBag.Title = "NEWS";
+}
+
+
+
+
+<div id="main_form">
+
+    <h3>
+        Новостная лента
+    </h3>
+
+    @using (Html.BeginForm("DinAjax", "Home", FormMethod.Post))
+    {
+        <div>
+
+            @Html.Label("DropDL", "Источник ленты:")
+
+            @Html.DropDownList("Source_Name")
+
+
+        </div>
+
+        <div>
+
+
+            <div id="CB_Left_Main">
+
+                <div id="CB_Left">
+                    @Html.CheckBox("sortToDate")
+                </div>
+
+                <div id="Label_Left">
+                    @*@Html.Label("sortToDate_Lable")*@
+                    @Html.DisplayNameFor(model => model.sortToDate_Lable)
+                </div>
+
+            </div>
+
+            <div id="CB_Right_Main">
+
+                <div id="CB_Right">
+                    @Html.CheckBox("sortToSource")
+                </div>
+
+                <div id="Label_Right">
+                    @*@Html.Label("sortToSource_Lable")*@
+                    @Html.DisplayNameFor(model => model.sortToSource_Lable)
+                </div>
+
+
+
+
+            </div>
+
+            <div id="DDL_Right_Main">
+                <div id="DropDL">
+                    @Html.Label("Страница")
+                    @Html.DropDownList("pageNumber")
+                </div>
+            </div>
+
+        </div>
+        <input type="submit" value="Просмотреть" />
+
+
+
+
+
+        <div id="Table_News">
+            <table id="tableNews" border="1" class="table table-bordered table-striped">
+                <thead>
+
+                    <tr>
+                        <td style=" text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.SourceName)</td>
+                        <td style=" text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.News_title)</td>
+                        <td style=" text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.News_description)</td>
+                        <td style=" text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.Publication_Date)</td>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SourceName)
+                            </td>
+
+                            <td>
+                                <a href=@item.SourseUrl>
+                                    @Html.DisplayFor(modelItem => item.News_title)
+                                </a>
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.News_description)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Publication_Date)
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+</div>
+
+

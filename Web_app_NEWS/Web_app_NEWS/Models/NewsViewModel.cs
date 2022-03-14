@@ -24,27 +24,13 @@ namespace Web_app_NEWS.Models
         [DisplayName("Описание новости")]
         public string News_description { get; set; }
 
-
-  
-
-        public Source Source_Name { get; set; }
+        
 
         [DisplayName("Сортировать по дате")]
         public string sortToDate_Lable { get; set; }
 
         [DisplayName("Сортировать по источнику")]
         public string sortToSource_Lable { get; set; }
-
-
-        public enum Source
-        {
-            Все,
-            Хабрхабр,
-            Интерфакс
-        }
-
-
-
 
 
     }

@@ -45,21 +45,107 @@ namespace Web_app_NEWS.Controllers
 
 
 
+            
+
+            var pages = Convert.ToInt32(Math.Round(((decimal)(rezult.Count() / pageSize)), 0));
+
+
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            for (var n = 1; n <= pages; n++)
+            {
+                items.Add(new SelectListItem { Text = $"{n}", Value = $"{n}" });
+            }
+            ViewBag.pageNumber = items;
+
+
+            var sourceNames = db.News.Select(select => select.SourceName).Distinct().ToList();
+
+            var countsourceNames = sourceNames.Count();
+
+            List<SelectListItem> sourceNameItems = new List<SelectListItem>();
+
+
+            sourceNameItems.Add(new SelectListItem { Text = "Все", Value = "Все" });
+
+            for (var n = 1; n <= countsourceNames; n++)
+            {
+                sourceNameItems.Add(new SelectListItem { Text = $"{sourceNames.ElementAt(n-1)}", Value = $"{sourceNames.ElementAt(n - 1)}" });
+            }
+            ViewBag.Source_Name = sourceNameItems;
+
+
+
+
             return View(news);
         }
+        
 
-        public ActionResult About()
+        public ActionResult DinAjax(int pageNumber = 1, int pageSize = 10)
         {
-            ViewBag.Message = "Your application description page.";
+            pageNumber = (pageNumber <= 0) ? 1 : pageNumber;
+            pageSize = (pageSize <= 0) ? 10 : pageSize;
 
-            return View();
-        }
+            var rezult = db.News.ToList();
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            var totalRecords = rezult.Count();
+            var totalPages = Math.Ceiling((double)totalRecords / pageSize);
 
-            return View();
+
+            var skip = (pageNumber - 1) * pageSize;
+
+
+            var news = new List<NewsViewModel>();
+
+
+            news = rezult.Skip(skip).Take(pageSize).Select(u => new NewsViewModel()
+            {
+                ID = u.ID,
+                Publication_Date = u.Publication_Date,
+                Guid = u.Guid,
+                SourseUrl = u.SourseUrl,
+                SourceName = u.SourceName,
+                News_title = u.News_title,
+                News_description = u.News_description
+            }).OrderBy(o => o.ID).ToList();
+
+
+
+
+
+            var pages = Convert.ToInt32(Math.Round(((decimal)(rezult.Count() / pageSize)), 0));
+
+
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            for (var n = 1; n <= pages; n++)
+            {
+                items.Add(new SelectListItem { Text = $"{n}", Value = $"{n}" });
+            }
+            ViewBag.pageNumber = items;
+
+
+            var sourceNames = db.News.Select(select => select.SourceName).Distinct().ToList();
+
+            var countsourceNames = sourceNames.Count();
+
+            List<SelectListItem> sourceNameItems = new List<SelectListItem>();
+
+
+            sourceNameItems.Add(new SelectListItem { Text = "Все", Value = "Все" });
+
+            for (var n = 1; n <= countsourceNames; n++)
+            {
+                sourceNameItems.Add(new SelectListItem { Text = $"{sourceNames.ElementAt(n - 1)}", Value = $"{sourceNames.ElementAt(n - 1)}" });
+            }
+            ViewBag.Source_Name = sourceNameItems;
+
+
+
+
+            return View(news);
         }
 
 
@@ -74,14 +160,86 @@ namespace Web_app_NEWS.Controllers
         public ActionResult Index(string Source_Name, bool sortToDate, bool sortToSource, int pageNumber = 1, int pageSize = 10)
         {
 
-            var rezult = Read(Source_Name, sortToDate, sortToSource, pageNumber, pageSize);
+            var rezult = db.News.ToList();
 
-            return View(rezult);
+            if (Source_Name == "Все")
+            {
+                if (sortToDate == false && sortToSource == false)
+                {
+                    rezult = db.News.OrderBy(o => o.ID).ToList();
+                }
+                else if (sortToDate == true && sortToSource == false)
+                {
+                    rezult = db.News.OrderBy(o => o.Publication_Date).ToList();
+                }
+                else if (sortToDate == false && sortToSource == true)
+                {
+                    rezult = db.News.OrderBy(o => o.SourceName).ToList();
+                }
+            }
+            else
+            {
+                if (sortToDate == false && sortToSource == false)
+                {
+                    rezult = db.News.Where(w => w.SourceName == Source_Name).OrderBy(o => o.ID).ToList();
+                }
+                else if (sortToDate == true && sortToSource == false)
+                {
+                    rezult = db.News.Where(w => w.SourceName == Source_Name).OrderBy(o => o.Publication_Date).ToList();
+                }
+                else if (sortToDate == false && sortToSource == true)
+                {
+                    rezult = db.News.Where(w => w.SourceName == Source_Name).OrderBy(o => o.SourceName).ToList();
+                }
+                if (sortToDate == true && sortToSource == true)
+                {
+                    rezult = db.News.Where(w => w.SourceName == Source_Name).OrderBy(o => o.ID).ToList();
+                }
+            }
+
+            var pages = Convert.ToInt32(Math.Round(((decimal)(rezult.Count() / pageSize)), 0));
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            for (var n = 1; n <= pages; n++)
+            {
+                items.Add(new SelectListItem { Text = $"{n}", Value = $"{n}" });
+            }
+            ViewBag.pageNumber = items;
+
+
+
+            var sourceNames = db.News.Select(select => select.SourceName).Distinct().ToList();
+
+            var countsourceNames = sourceNames.Count();
+
+            List<SelectListItem> sourceNameItems = new List<SelectListItem>();
+
+            sourceNameItems.Add(new SelectListItem { Text = "Все", Value = "Все" });
+
+            for (var n = 1; n <= countsourceNames; n++)
+            {
+                sourceNameItems.Add(new SelectListItem { Text = $"{sourceNames.ElementAt(n - 1)}", Value = $"{sourceNames.ElementAt(n - 1)}" });
+            }
+            ViewBag.Source_Name = sourceNameItems;
+
+
+
+
+            var rezults = Read(Source_Name, sortToDate, sortToSource, pageNumber, pageSize);
+
+
+           
+
+
+            return View(rezults);
 
 
         }
 
-   
+
+
+
         public IList<NewsViewModel> GetAllNews(string Source_Name, bool sortToDate, bool sortToSource, int pageNumber = 1, int pageSize = 10)
         {
           
@@ -90,7 +248,7 @@ namespace Web_app_NEWS.Controllers
 
             var rezults = db.News.ToList();
 
-            if (Source_Name == "all")
+            if (Source_Name == "Все")
             {
                 if (sortToDate == false && sortToSource == false)
                 {
@@ -155,6 +313,11 @@ namespace Web_app_NEWS.Controllers
         {
             return GetAllNews(Source_Name, sortToDate, sortToSource, pageNumber, pageSize);
         }
+
+
+
+
+
 
     }
 }

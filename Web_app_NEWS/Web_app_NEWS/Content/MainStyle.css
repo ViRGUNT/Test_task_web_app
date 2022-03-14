@@ -20,6 +20,15 @@ h3{
     display: inline-block;
 }
 
+
+#DDL_Right_Main {
+    padding-top: 5px;
+    display: inline-block;
+}
+
+
+
+
 #CB_Left {
     vertical-align: top;
     display: inline-block;
@@ -42,8 +51,17 @@ h3{
     vertical-align: bottom;
 }
 
+
+№DropDL {
+    width: 100px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+
+
 #Source_Name {
-    width: 200px;
+    width: 250px;
 }
 
 #Table_News{
