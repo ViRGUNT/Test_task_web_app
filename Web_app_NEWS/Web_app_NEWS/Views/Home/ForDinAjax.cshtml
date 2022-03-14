@@ -1,0 +1,56 @@
+﻿
+@using Web_app_NEWS.Models
+@model IEnumerable<NewsViewModel>
+
+
+
+
+
+<div id="Table_News">
+    <table id="tableNews" border="1" class="table table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <td style=" width: 225px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.SourceName)</td>
+                <td style=" width: 225px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.News_title)</td>
+                <td style=" width: 460px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.News_description)</td>
+                <td style=" width: 225px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.Publication_Date)</td>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SourceName)
+                    </td>
+
+                    <td>
+                        <a href=@item.SourseUrl>
+                            @Html.DisplayFor(modelItem => item.News_title)
+                        </a>
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.News_description)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publication_Date)
+                    </td>
+
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
+

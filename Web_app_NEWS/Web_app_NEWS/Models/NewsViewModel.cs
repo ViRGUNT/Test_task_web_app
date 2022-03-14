@@ -33,5 +33,23 @@ namespace Web_app_NEWS.Models
         public string sortToSource_Lable { get; set; }
 
 
+
+
+
+
+
+
+        ///////////////////
+
+
+
+
+        public string Source_Name { get; set; }
+        public bool sortToDate { get; set; }
+        public bool sortToSource { get; set; }
+        public int pageNumber { get; set; }
+        public int pageSize { get; set; }
+
+
     }
 }

@@ -85,7 +85,6 @@ F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\bin\ru\System.Web.Razor.resources.dll
 F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\bin\ru\System.Web.WebPages.resources.dll
 F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\bin\ru\System.Web.WebPages.Deployment.resources.dll
 F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\bin\ru\System.Web.WebPages.Razor.resources.dll
-F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\obj\Debug\Web_app_NEWS.csproj.AssemblyReference.cache
 F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\obj\Debug\Web_app_NEWS.csproj.CoreCompileInputs.cache
 F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\obj\Debug\Web_app_NEWS.csproj.CopyComplete
 F:\Git\Web_app\Web_app_NEWS\Web_app_NEWS\obj\Debug\Web_app_NEWS.dll
