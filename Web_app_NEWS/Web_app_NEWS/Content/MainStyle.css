@@ -1,0 +1,56 @@
+﻿body {
+}
+
+
+h3{
+    font-weight:700;
+}
+
+#main_form{
+    padding-top: 20px;
+}
+
+#CB_Left_Main {
+    padding-top: 5px;
+    display: inline-block;
+}
+
+#CB_Right_Main {
+    padding-top: 5px;
+    display: inline-block;
+}
+
+#CB_Left {
+    vertical-align: top;
+    display: inline-block;
+}
+
+#Label_Left {
+    width: 100px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+#CB_Right {
+    vertical-align: top;
+    display: inline-block;
+}
+
+#Label_Right {
+    width: 100px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+#Source_Name {
+    width: 200px;
+}
+
+#Table_News{
+    padding-top: 10px;
+}
+
+td{
+    width: 150px;
+}
+    

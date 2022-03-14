@@ -24,7 +24,9 @@ namespace Web_app_NEWS
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/MainStyle.css"
+                      ));
         }
     }
 }

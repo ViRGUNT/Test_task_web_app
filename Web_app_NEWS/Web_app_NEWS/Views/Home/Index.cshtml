@@ -1,31 +1,117 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using Web_app_NEWS.Models
+@model IEnumerable<NewsViewModel>
+
+
+
+
+@{
+    ViewBag.Title = "NEWS";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
+
+<div id="main_form">
+
+    <h3>
+        Новостная лента
+    </h3>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div>
+
+            @Html.Label("DropDL", "Источник ленты:")
+            
+            <select name="Source_Name" id="Source_Name">
+                <option value="all">@Web_app_NEWS.Models.NewsViewModel.Source.Все.</option>
+                <option value="habr.com: Все публикации подряд">@Web_app_NEWS.Models.NewsViewModel.Source.Хабрхабр</option>
+                <option value="iXBT.com: новости">@Web_app_NEWS.Models.NewsViewModel.Source.Интерфакс</option>               
+            </select>
+
+
+        </div>
+
+        <div>
+
+
+            <div id="CB_Left_Main">
+
+                <div id="CB_Left">
+                    @Html.CheckBox("sortToDate")
+                </div>
+
+                <div id="Label_Left">
+                    @*@Html.Label("sortToDate_Lable")*@
+                    @Html.DisplayNameFor(model => model.sortToDate_Lable)
+                </div>
+
+            </div>
+
+            <div id="CB_Right_Main">
+
+                <div id="CB_Right">
+                    @Html.CheckBox("sortToSource")
+                </div>
+
+                <div id="Label_Right">
+                    @*@Html.Label("sortToSource_Lable")*@
+                    @Html.DisplayNameFor(model => model.sortToSource_Lable)
+                </div>
+
+            </div>
+
+
+        </div>
+        <input type="submit" value="Просмотреть" />
+
+
+
+
+        <div id="Table_News">
+            <table border="1">
+                <thead>
+
+                    <tr>
+                        <td style="width: 150px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.SourceName)</td>
+                        <td style="width: 250px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.News_title)</td>
+                        <td style="width: 350px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.News_description)</td>
+                        <td style="width: 150px; text-align: center; font-weight: 700; ">@Html.DisplayNameFor(model => model.Publication_Date)</td>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                
+                                    @Html.DisplayFor(modelItem => item.SourceName)
+                               
+                            </td>
+
+                            <td>
+                                <a href=@item.SourseUrl>
+                                    @Html.DisplayFor(modelItem => item.News_title)
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.News_description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Publication_Date)
+                            </td>
+                                                        
+                        </tr>
+                    }
+
+                </tbody>
+              
+            </table>
+
+
+        </div>
+    }
+
 </div>
